@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import GotService from '../../services/GotService'
 
 import styled from 'styled-components'
 
@@ -17,28 +18,61 @@ const Term = styled.span`
 `
 
 export default class RandomChar extends Component {
+    constructor() {
+        super()
+        this.updateChar()
+    }
+
+    state = {
+        name: null,
+        gender: null,
+        born: null,
+        died: null,
+        culture: null
+    }
+
+    GotService = new GotService()
+
+    onCharLoaded(char) {
+        this.setState({
+            name: char.name,
+            gender: char.gender,
+            born: char.born,
+            died: char.died,
+            culture: char.culture
+        })
+    }
+
+    updateChar() {
+        const id = Math.floor(Math.random()*150+20) // 20 - 150
+        this.GotService.GetCharacter(id)
+            .then(res => this.onCharLoaded(res))
+    }
+
 
     render() {
 
+        const { name, gender, born, died, culture } = this.state;
+
         return (
             <RandomBlock className="rounded">
-                <h4>Random Character: John</h4>
+                <h4>Random Character: {name}</h4>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between">
                         <Term>Gender </Term>
-                        <span>male</span>
+                        <span>{gender}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between">
                         <Term>Born </Term>
-                        <span>11.03.1039</span>
+                        <span>{born}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between">
                         <Term>Died </Term>
-                        <span>13.09.1089</span>
+                        <span>{died}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between">
                         <Term>Culture </Term>
-                        <span>Anarchy</span>
+                        <span>{culture}</span>
                     </li>
                 </ul>
             </RandomBlock>
