@@ -11,7 +11,8 @@ export default class App extends Component {
         super()
 
         this.state = {
-            randomChar: true
+            randomChar: true,
+            selectedChar: null
         }
     }
 
@@ -19,11 +20,18 @@ export default class App extends Component {
         this.setState({
             randomChar: !this.state.randomChar
         })
-        console.log(this.state.randomChar)
+    }
+
+    onCharSelected = id => {
+        this.setState({
+            selectedChar: id
+        })
     }
 
     render() {
-        const {randomChar} = this.state;
+        const { randomChar, selectedChar } = this.state;
+
+        console.log(selectedChar)
 
         return (
             <>
@@ -39,10 +47,10 @@ export default class App extends Component {
                     </Row>
                     <Row>
                         <Col md='6'>
-                            <ItemList />
+                            <ItemList onCharSelected={this.onCharSelected}/>
                         </Col>
                         <Col md='6'>
-                            <CharDetails />
+                            <CharDetails selectedChar={selectedChar}/>
                         </Col>
                     </Row>
                 </Container>
