@@ -24,7 +24,7 @@ export default class CharDetails extends Component {
     }
 
     componentDidMount() {
-        this.updateChar()
+        this.updateChar();
     }
 
     componentDidUpdate(prevProps) {

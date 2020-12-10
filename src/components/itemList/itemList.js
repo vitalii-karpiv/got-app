@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import gotService from '../../services/GotService';
-// import ErrorMessage from '../error';
+import ErrorMessage from '../errorMessage/errorMessage';
 import Spinner from '../spinner';
 
 
@@ -58,7 +58,7 @@ export default class ItemList extends Component {
         const {charList, error} = this.state;
 
         if(error){
-            return <span>Something went wrong!</span>
+            return <ErrorMessage />
         }
 
         if(!charList) {
